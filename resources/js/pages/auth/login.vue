@@ -130,8 +130,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
+    import Helpers from "../../helpers";
     export default {
         name: "Login",
         props: ['logo'],
@@ -146,8 +145,9 @@
         },
         methods: {
             signIn() {
-                axios.post('http://127.0.0.1:8000/login', this.form).then(res => {
+                Helpers.api.post('/login', this.form).then(res => {
                     if (res.status === 200) {
+                        Helpers.notify('top-end', 'success', 'Successfully login!');
                         window.location.reload();
                     }
                 }).catch(e => {

@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://i.ibb.co/8rdfXrh/imageonline-co-textimage.png" width="400">
+    <img src="https://i.ibb.co/8rdfXrh/imageonline-co-textimage.png" width="400">
 </p>
 
 
@@ -26,6 +26,10 @@ user can see the approved status with EMI details.
 5. EMI will be implemented using flat rate method.
 6. EMI payment or due date will be 1 month from the date and time admin has approved the loan
 application and payment end date will be 1 month from the payment date.
+
+<p align="center">
+    <img src="https://i.ibb.co/BfrRc3j/EMI-Generation.png">
+</p>
 
 
 ## Installation Guide

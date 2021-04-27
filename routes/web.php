@@ -13,10 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->middleware('auth');
+Route::middleware(['auth', 'is_admin'])->group(function () {
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware('auth');
+    Route::get('/', function () {
+        return view('home');
+    });
+
+    Route::get('/home', function () {
+        return view('home');
+    });
+
+    Route::get('/apply-loan', function () {
+        return view('loan');
+    });
+
+});
