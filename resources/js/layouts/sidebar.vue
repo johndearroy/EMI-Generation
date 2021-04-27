@@ -19,12 +19,11 @@
             </div>
 
             <nav class="mt-10">
-                <a
-                    class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4"
-                    :class="activeClass"
-                    href="/home"
-                >
+                <a class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4" :class="getClass('/home')" href="/home">
                     <span class="mx-4">Dashboard</span>
+                </a>
+                <a class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4" :class="getClass('/apply-loan')" href="/apply-loan">
+                    <span class="mx-4">Apply Loan</span>
                 </a>
             </nav>
         </div>
@@ -39,6 +38,11 @@
                 isOpen: false,
                 activeClass: "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100",
                 inactiveClass: "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
+            }
+        },
+        methods: {
+            getClass(pathname) {
+                return pathname === window.location.pathname ? this.activeClass : this.inactiveClass;
             }
         }
     }

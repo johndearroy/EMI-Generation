@@ -34,7 +34,7 @@
                 <div v-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
-                    <a href="/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Log out</a>
+                    <a href="#" @click="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Log out</a>
                 </div>
             </div>
         </div>
@@ -42,12 +42,23 @@
 </template>
 
 <script>
+    import Helpers from '../helpers.js';
     export default {
         name: "AppHeader",
         data() {
             return {
                 isOpen: false,
                 dropdownOpen: false
+            }
+        },
+        methods: {
+            logout() {
+                Helpers.api.post('/logout').then(res => {
+                    if (res.status === 200 || res.status === 204) {
+                        Helpers.notify('top-end', 'success', 'Successfully logout!');
+                        window.location.reload();
+                    }
+                }).catch(e => console.log(e))
             }
         }
     }
