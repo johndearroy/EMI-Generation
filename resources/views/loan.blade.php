@@ -11,7 +11,10 @@
 </head>
 <body>
 <div id="app">
-    <app></app>
+    <applications
+        :applications="{{ $applications ? $applications : null }}"
+        :is-admin="{{ auth()->user()->is_admin ? 'true' : 'false' }}"
+    ></applications>
 </div>
 
 <script src="{{ mix('js/app.js') }}"></script>

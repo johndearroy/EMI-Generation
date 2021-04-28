@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoanApplicationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth', 'is_admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     Route::get('/', function () {
         return view('home');
@@ -23,8 +24,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         return view('home');
     });
 
-    Route::get('/apply-loan', function () {
-        return view('loan');
-    });
+    Route::resource('/applications', LoanApplicationController::class)
+        ->only(['index', 'store', 'update']);
 
 });

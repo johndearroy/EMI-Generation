@@ -22,8 +22,8 @@
                 <a class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4" :class="getClass('/home')" href="/home">
                     <span class="mx-4">Dashboard</span>
                 </a>
-                <a class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4" :class="getClass('/apply-loan')" href="/apply-loan">
-                    <span class="mx-4">Apply Loan</span>
+                <a class="flex items-center duration-200 mt-4 py-2 px-6 border-l-4" :class="getClass('/applications')" href="/applications">
+                    <span class="mx-4">Applications</span>
                 </a>
             </nav>
         </div>

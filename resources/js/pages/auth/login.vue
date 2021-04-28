@@ -122,6 +122,9 @@
                                 </div>
                             </div>
                         </form>
+                        <p class="flex justify-center items-center">
+                            Don't have account? <a href="/register" class="ml-1">Register please</a>
+                        </p>
                     </div>
                 </div>
             </div>

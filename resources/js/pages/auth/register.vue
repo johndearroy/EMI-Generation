@@ -14,18 +14,11 @@
                         <form @submit.prevent>
                             <div>
                                 <div class="flex -mx-3">
-                                    <div class="w-1/2 px-3 mb-5">
-                                        <label for="" class="text-xs font-semibold px-1">First name</label>
+                                    <div class="w-full px-3 mb-5">
+                                        <label for="" class="text-xs font-semibold px-1">Name</label>
                                         <div class="flex">
-                                            <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model="form.first_name" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John" required>
-                                        </div>
-                                    </div>
-                                    <div class="w-1/2 px-3 mb-5">
-                                        <label for="" class="text-xs font-semibold px-1">Last name</label>
-                                        <div class="flex">
-                                            <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
-                                            <input v-model="form.last_name" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="Smith" required>
+                                            <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
+                                            <input v-model="form.name" type="text" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John Doe" required>
                                         </div>
                                     </div>
                                 </div>
@@ -63,6 +56,9 @@
                                 </div>
                             </div>
                         </form>
+                        <p class="flex justify-center items-center">
+                            Already have account? <a href="/login" class="ml-1">Login please</a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -71,15 +67,14 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import Helpers from "../../helpers";
     export default {
         name: "Register",
         props: ['logo', 'csrfToken'],
         data() {
             return {
                 form: {
-                    first_name: '',
-                    last_name: '',
+                    name: '',
                     email: '',
                     password: '',
                     password_confirmation: '',
@@ -88,14 +83,14 @@
         },
         methods: {
             signUp() {
-                this.form.name = this.first_name + ' ' + this.last_name;
-                axios.post('http://127.0.0.1:8000/register', this.form).then(res => {
-                    if (res.status === 200) {
-                        window.location.href = window.location.host;
+                Helpers.api.post('/register', this.form).then(res => {
+                    if (res.status === 200 || res.status === 201) {
+                        Helpers.notify('top-end', 'success', 'Successfully registered!');
+                        window.location.reload();
                     }
                 }).catch(e => {
                     console.log(e)
-                })
+                });
             }
         }
     }
