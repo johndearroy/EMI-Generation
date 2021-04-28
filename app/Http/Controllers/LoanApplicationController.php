@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\LoanApplication;
+use App\Services\LoanApplicationService;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Integer;
 
 class LoanApplicationController extends Controller
 {
     protected $model;
+    protected $service;
 
-    public function __construct(LoanApplication $loanApplication)
+    public function __construct(LoanApplication $loanApplication, LoanApplicationService $loanApplicationService)
     {
         $this->model = $loanApplication;
+        $this->service = $loanApplicationService;
     }
 
     /**
@@ -22,9 +25,20 @@ class LoanApplicationController extends Controller
      */
     public function index()
     {
-        $applications = auth()->user()->is_admin
-                        ? $this->model->all()
-                        : $this->model->where('user', auth()->user()->id)->get();
+        $user = auth()->user();
+        $applications = [];
+
+        if ($user->is_admin) {
+
+            $applications = $this->model->all();
+
+        } else {
+            $data = $this->model->query()->where('user', $user->id)->get();
+
+            $applications = $this->service->prepareApplicationData($data);
+        }
+
+        //dd($applications);
 
         return view('loan', compact('applications'));
     }
