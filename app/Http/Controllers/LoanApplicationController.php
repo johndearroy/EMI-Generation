@@ -30,10 +30,10 @@ class LoanApplicationController extends Controller
 
         if ($user->is_admin) {
 
-            $applications = $this->model->all();
+            $applications = $this->model->with('user:id,name')->get();
 
         } else {
-            $data = $this->model->query()->where('user', $user->id)->get();
+            $data = $this->model->query()->with('user:id,name')->where('user', $user->id)->get();
 
             $applications = $this->service->prepareApplicationData($data);
         }

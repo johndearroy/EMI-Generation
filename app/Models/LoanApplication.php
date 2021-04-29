@@ -18,6 +18,15 @@ class LoanApplication extends Model
         'emi',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Application user belongs to User::model
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user', 'id');
+    }
+
     public function getTotalInterestAttribute()
     {
         $result = (optional($this)->amount * optional($this)->duration * optional($this)->interest_rate) / 100;
