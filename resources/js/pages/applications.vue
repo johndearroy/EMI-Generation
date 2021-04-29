@@ -61,8 +61,9 @@
                                             </td>
                                             <td class="py-3 px-6 text-center">
                                                 <div class="flex item-center justify-center">
-                                                    <button v-if="!isAdmin && item.status === 'Approved'" type="button"
+                                                    <button v-if="!isAdmin && item.status === 'Approved' && item.emi_details" type="button"
                                                             class="focus:outline-none text-blue-600 text-xs py-2.5 px-5 rounded-md hover:bg-blue-100"
+                                                            @click="viewApplication(item)"
                                                     >View</button>
                                                     <button v-if="isAdmin && item.status !== 'Approved'" type="button"
                                                             class="focus:outline-none text-green-600 text-xs py-2.5 px-5 rounded-md hover:bg-blue-100"
@@ -86,6 +87,7 @@
             </main>
         </div>
 
+        <!-- // New loan Application Modal //  -->
         <div class="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50 duration-300 overflow-y-auto" v-if="showModal">
             <div class="relative sm:w-3/4 md:w-1/2 lg:w-1/3 mx-2 sm:mx-auto mt-10 mb-24 opacity-100">
                 <div class="relative bg-white shadow-lg rounded-lg text-gray-900 z-20">
@@ -120,6 +122,73 @@
             </div>
         </div>
 
+        <!-- // Showing EMI Details Modal // -->
+        <div class="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50 duration-300 overflow-y-auto" v-if="showDetailsModal">
+            <div class="relative sm:w-3/5 md:w-3/5 lg:w-3/5 mx-2 sm:mx-auto mt-10 mb-24 opacity-100">
+                <div class="relative bg-white shadow-lg rounded-lg text-gray-900 z-20">
+                    <header class="flex flex-col justify-center items-center p-3 text-blue-600">
+                        <h2 class="font-semibold text-2xl">EMI Details</h2>
+                    </header>
+                    <main class="p-3">
+
+                        <div class="grid grid-cols-3 gap-4 m-4">
+                            <div><strong>Amount:</strong> {{ emiDetails.amount }}</div>
+                            <div><strong>Duration:</strong> {{ emiDetails.duration }}</div>
+                            <div><strong>Interest rate:</strong> {{ emiDetails.interest_rate }}</div>
+                            <div><strong>EMI:</strong> {{ emiDetails.emi }}</div>
+                            <div><strong>Monthly interest:</strong> {{ emiDetails.monthly_interest }}</div>
+                            <div><strong>Monthly principal amount:</strong> {{ emiDetails.monthly_principal_amount }}</div>
+                            <div><strong>Total interest:</strong> {{ emiDetails.total_interest }}</div>
+                            <div><strong>Status:</strong>
+                                <span :class="getStatusClass(emiDetails.status)">
+                                    {{ emiDetails.status }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <table v-if="emiDetails.emi_details.length > 0" class="min-w-max w-full table-auto">
+                            <thead>
+                            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                <th class="py-3 px-6 text-left">Serial</th>
+                                <th class="py-3 px-6 text-left">Title</th>
+                                <th class="py-3 px-6 text-center">Total Amount</th>
+                                <th class="py-3 px-6 text-center">Payment Date</th>
+                                <th class="py-3 px-6 text-center">Payment End Date</th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-gray-600 text-sm font-light">
+                            <tr v-for="(item, index) in emiDetails.emi_details" :key="index" class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <span class="font-medium">{{ item.serial }}</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-6 text-left">
+                                    {{ item.title }}
+                                </td>
+                                <td class="py-3 px-6 text-left">
+                                    {{ item.total_amount }}
+                                </td>
+                                <td class="py-3 px-6 text-left">
+                                    {{ getDate(item.payment_date, 'll') }}
+                                </td>
+                                <td class="py-3 px-6 text-left">
+                                    {{ getDate(item.payment_end_date, 'll') }}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </main>
+                    <footer class="flex justify-center bg-transparent">
+                        <button class="bg-red-600 font-semibold text-white py-3 w-full rounded-bl-md hover:bg-blue-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300" @click="showDetailsModal = false">
+                            Close
+                        </button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 <script>
@@ -138,11 +207,13 @@
         data() {
             return {
                 showModal: false,
+                showDetailsModal: false,
                 form: {
                     amount: null,
                     duration: null,
                     interest_rate: null
-                }
+                },
+                emiDetails: {}
             }
         },
         methods: {
@@ -188,6 +259,12 @@
                     }).catch(e => {
                         console.log(e)
                     })
+                }
+            },
+            viewApplication(item) {
+                if (item.emi_details) {
+                    this.emiDetails = item;
+                    this.showDetailsModal = true;
                 }
             }
         }
