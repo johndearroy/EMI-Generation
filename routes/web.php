@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoanApplicationController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +21,7 @@ Route::middleware(['auth'])->group(function () {
         return view('home');
     });
 
-    Route::get('/home', function () {
-        return view('home');
-    });
+    Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.view');
 
     Route::resource('/applications', LoanApplicationController::class)
         ->only(['index', 'store', 'update']);

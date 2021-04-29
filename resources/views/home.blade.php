@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="app">
-    <app></app>
+    <app :data="{{ $data }}"></app>
 </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
