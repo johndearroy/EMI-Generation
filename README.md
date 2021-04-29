@@ -39,7 +39,7 @@ Please install [Composer](https://getcomposer.org/) and other essential tools fo
 If your computer already has PHP, MySQL or XAMPP and Composer installed then follow the instructions bellow:
 * Clone the project ```git clone git@github.com:johndearroy/EMI-Generation.git```
 * Navigate to the project directory ```cd EMI-Generation```
-* Run ```cp .env .env.example``` or manually copy the ```.env.example``` to ```.env``` at the root
+* Run ```cp .env.example .env``` or manually copy the ```.env.example``` to ```.env``` at the root
 * Configure the database credentials
 `````yaml
 DB_DATABASE=<YOUR_DATABASE_NAME>
@@ -48,6 +48,7 @@ DB_PASSWORD=<YOUR_DATABASE_PASSWORD>
 `````
 * Run ```composer install```
 * Run ```npm install && npm run dev``` [N.B: Make sure you have nodejs installed on your machine]
+* Run ```php artisan key:generate```
 * Run ```php artisan migrate --seed``` or ```php artisan migrate:fresh --seed```
 * Finally run ```php artisan serve``` and navigate to "http://127.0.0.1:8000/" at your browser.
 * If you seeded the data properly by command ```php artisan migrate --seed``` then you can now login as admin by using the following credentials:
