@@ -13,7 +13,7 @@
 
 <strong>Version:</strong> ```1.0.0```
 
-<strong>Stack:</strong> [Laravel 8]('https://laravel.com/'), [VueJs]('https://vuejs.org/'), [MySQL]('https://www.mysql.com/'), [TailwindCSS]('https://tailwindcss.com/')
+<strong>Stack:</strong> [Laravel 8](https://laravel.com/), [VueJs](https://vuejs.org/), [MySQL](https://www.mysql.com/), [TailwindCSS](https://tailwindcss.com/)
 
 ## Project requirements:
 
@@ -35,7 +35,7 @@ application and payment end date will be 1 month from the payment date.
 
 
 ## Installation Guide
-Please install [Composer]('https://getcomposer.org/') and other essential tools for setting up the environment to run and/or create a Laravel project.
+Please install [Composer](https://getcomposer.org/) and other essential tools for setting up the environment to run and/or create a Laravel project.
 If your computer already has PHP, MySQL or XAMPP and Composer installed then follow the instructions bellow:
 * Clone the project ```git clone git@github.com:johndearroy/EMI-Generation.git```
 * Navigate to the project directory ```cd EMI-Generation```
